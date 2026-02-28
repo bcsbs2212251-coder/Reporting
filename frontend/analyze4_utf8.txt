@@ -1,0 +1,34 @@
+﻿Analyzing frontend...                                           
+
+   info - Don't use 'BuildContext's across async gaps - lib\screens\admin_leaves_screen.dart:69:28 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps - lib\screens\admin_leaves_screen.dart:106:28 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps - lib\screens\admin_leaves_screen.dart:111:28 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check - lib\screens\admin_screen.dart:166:33 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check - lib\screens\admin_screen.dart:168:42 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check - lib\screens\admin_screen.dart:173:42 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps - lib\screens\dashboard_screen.dart:792:48 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check - lib\screens\detailed_report_screen.dart:83:46 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check - lib\screens\detailed_report_screen.dart:85:46 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check - lib\screens\detailed_report_screen.dart:103:52 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check - lib\screens\detailed_report_screen.dart:105:52 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check - lib\screens\login_screen.dart:44:45 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check - lib\screens\login_screen.dart:46:45 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps - lib\screens\my_leaves_screen.dart:36:28 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps - lib\screens\request_leave_screen.dart:64:32 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps - lib\screens\request_leave_screen.dart:72:30 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps - lib\screens\request_leave_screen.dart:77:28 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps - lib\screens\request_leave_screen.dart:95:26 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps - lib\screens\request_leave_screen.dart:136:28 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps - lib\screens\request_leave_screen.dart:140:21 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps - lib\screens\request_leave_screen.dart:142:28 - use_build_context_synchronously
+   info - 'groupValue' is deprecated and shouldn't be used. Use a RadioGroup ancestor to manage group value instead. This feature was deprecated after v3.32.0-0.0.pre - lib\screens\request_leave_screen.dart:206:21 - deprecated_member_use
+   info - 'onChanged' is deprecated and shouldn't be used. Use RadioGroup to handle value change instead. This feature was deprecated after v3.32.0-0.0.pre - lib\screens\request_leave_screen.dart:207:21 - deprecated_member_use
+   info - Unnecessary use of 'toList' in a spread - lib\screens\request_leave_screen.dart:214:20 - unnecessary_to_list_in_spreads
+   info - Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check - lib\screens\signup_screen.dart:51:30 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check - lib\screens\signup_screen.dart:58:11 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps - lib\screens\submit_report_screen.dart:80:32 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps - lib\screens\submit_report_screen.dart:89:28 - use_build_context_synchronously
+   info - Use 'const' with the constructor to improve performance - lib\screens\unified_employee_screen.dart:256:31 - prefer_const_constructors
+   info - Don't use 'BuildContext's across async gaps - lib\screens\unified_employee_screen.dart:845:42 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps - lib\screens\unified_employee_screen.dart:850:42 - use_build_context_synchronously
+

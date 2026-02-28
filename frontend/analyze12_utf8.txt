@@ -1,0 +1,15 @@
+﻿Analyzing frontend...                                           
+
+   info - Use 'const' with the constructor to improve performance - lib\screens\unified_employee_screen.dart:256:31 - prefer_const_constructors
+  error - Invalid constant value - lib\screens\unified_employee_screen.dart:515:35 - invalid_constant
+   info - Unnecessary 'const' keyword - lib\screens\unified_employee_screen.dart:516:42 - unnecessary_const
+  error - The constructor being called isn't a const constructor - lib\screens\unified_employee_screen.dart:521:33 - const_with_non_const
+   info - Unnecessary 'const' keyword - lib\screens\unified_employee_screen.dart:522:44 - unnecessary_const
+  error - The constructor being called isn't a const constructor - lib\screens\unified_employee_screen.dart:525:51 - const_with_non_const
+   info - Unnecessary 'const' keyword - lib\screens\unified_employee_screen.dart:538:29 - unnecessary_const
+   info - Unnecessary 'const' keyword - lib\screens\unified_employee_screen.dart:542:31 - unnecessary_const
+  error - The constructor being called isn't a const constructor - lib\screens\unified_employee_screen.dart:543:31 - const_with_non_const
+   info - Unnecessary 'const' keyword - lib\screens\unified_employee_screen.dart:544:42 - unnecessary_const
+  error - The constructor being called isn't a const constructor - lib\screens\unified_employee_screen.dart:547:49 - const_with_non_const
+   info - Unnecessary 'const' keyword - lib\screens\unified_employee_screen.dart:552:37 - unnecessary_const
+

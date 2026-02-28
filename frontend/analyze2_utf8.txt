@@ -1,0 +1,40 @@
+﻿Analyzing frontend...                                           
+
+   info - Parameter 'key' could be a super parameter - lib\screens\admin_leaves_screen.dart:6:9 - use_super_parameters
+   info - Don't use 'BuildContext's across async gaps - lib\screens\admin_leaves_screen.dart:69:28 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps - lib\screens\admin_leaves_screen.dart:106:28 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps - lib\screens\admin_leaves_screen.dart:111:28 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check - lib\screens\admin_screen.dart:166:33 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check - lib\screens\admin_screen.dart:168:42 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check - lib\screens\admin_screen.dart:173:42 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps - lib\screens\dashboard_screen.dart:792:48 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check - lib\screens\detailed_report_screen.dart:83:46 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check - lib\screens\detailed_report_screen.dart:85:46 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check - lib\screens\detailed_report_screen.dart:103:52 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check - lib\screens\detailed_report_screen.dart:105:52 - use_build_context_synchronously
+warning - Unused import: 'package:intl/intl.dart' - lib\screens\my_leaves_screen.dart:2:8 - unused_import
+   info - Parameter 'key' could be a super parameter - lib\screens\my_leaves_screen.dart:6:9 - use_super_parameters
+   info - Don't use 'BuildContext's across async gaps - lib\screens\my_leaves_screen.dart:37:28 - use_build_context_synchronously
+   info - Parameter 'key' could be a super parameter - lib\screens\request_leave_screen.dart:7:9 - use_super_parameters
+   info - Don't use 'BuildContext's across async gaps - lib\screens\request_leave_screen.dart:64:32 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps - lib\screens\request_leave_screen.dart:72:30 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps - lib\screens\request_leave_screen.dart:77:28 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps - lib\screens\request_leave_screen.dart:95:26 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps - lib\screens\request_leave_screen.dart:136:28 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps - lib\screens\request_leave_screen.dart:140:21 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps - lib\screens\request_leave_screen.dart:142:28 - use_build_context_synchronously
+   info - 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre - lib\screens\request_leave_screen.dart:179:17 - deprecated_member_use
+   info - 'groupValue' is deprecated and shouldn't be used. Use a RadioGroup ancestor to manage group value instead. This feature was deprecated after v3.32.0-0.0.pre - lib\screens\request_leave_screen.dart:206:21 - deprecated_member_use
+   info - 'onChanged' is deprecated and shouldn't be used. Use RadioGroup to handle value change instead. This feature was deprecated after v3.32.0-0.0.pre - lib\screens\request_leave_screen.dart:207:21 - deprecated_member_use
+   info - Unnecessary use of 'toList' in a spread - lib\screens\request_leave_screen.dart:214:20 - unnecessary_to_list_in_spreads
+   info - The private field _uploadedFiles could be 'final' - lib\screens\submit_report_screen.dart:21:16 - prefer_final_fields
+   info - Don't use 'BuildContext's across async gaps - lib\screens\submit_report_screen.dart:80:32 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps - lib\screens\submit_report_screen.dart:89:28 - use_build_context_synchronously
+   info - 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre - lib\screens\unified_admin_screen.dart:680:17 - deprecated_member_use
+   info - Use 'const' with the constructor to improve performance - lib\screens\unified_employee_screen.dart:256:31 - prefer_const_constructors
+   info - 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre - lib\screens\unified_employee_screen.dart:686:17 - deprecated_member_use
+   info - 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre - lib\screens\unified_employee_screen.dart:752:19 - deprecated_member_use
+   info - 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre - lib\screens\unified_employee_screen.dart:772:21 - deprecated_member_use
+   info - Don't use 'BuildContext's across async gaps - lib\screens\unified_employee_screen.dart:845:42 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps - lib\screens\unified_employee_screen.dart:850:42 - use_build_context_synchronously
+
