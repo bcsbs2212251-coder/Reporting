@@ -6,8 +6,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'download_helper_mobile.dart' if (dart.library.html) 'download_helper_web.dart' as dh;
 
 class ApiService {
-  // Base URL for API calls
-  static String baseUrl = 'http://127.0.0.1:8001/api';
+  // Base URL for API calls - Railway Production
+  static String baseUrl = 'https://reporting-backend-production.up.railway.app/api';
   static String? _token;
 
   // Method to set a different base URL (e.g., for mobile testing)
@@ -87,7 +87,7 @@ class ApiService {
   }) async {
     try {
       final response = await http.post(
-        Uri.parse('$baseUrl/auth/login'),
+Uri.parse('$baseUrl/auth/login'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           'email': email,

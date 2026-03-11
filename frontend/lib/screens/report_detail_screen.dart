@@ -119,7 +119,6 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
         ? DateFormat('MMM dd, yyyy • hh:mm a').format(DateTime.parse(createdAt))
         : 'Unknown Date';
     final status = (_report!['status'] ?? 'pending').toString().toUpperCase();
-    final priority = (_report!['priority'] ?? 'medium').toString().toUpperCase();
     final category = (_report!['category'] ?? 'general').toString().toUpperCase();
 
     return Scaffold(
@@ -139,8 +138,6 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
             Row(
               children: [
                 _buildStatusChip(status),
-                const SizedBox(width: 8),
-                _buildPriorityChip(priority),
                 const SizedBox(width: 8),
                 _buildCategoryChip(category),
               ],
@@ -236,28 +233,6 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
       child: Text(
         status,
         style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.bold),
-      ),
-    );
-  }
-
-  Widget _buildPriorityChip(String priority) {
-    Color color = priority == 'HIGH' ? Colors.red : (priority == 'MEDIUM' ? Colors.orange : Colors.blue);
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-      decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(Icons.flag, size: 12, color: color),
-          const SizedBox(width: 4),
-          Text(
-            priority,
-            style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.bold),
-          ),
-        ],
       ),
     );
   }

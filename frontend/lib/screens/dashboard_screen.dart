@@ -19,28 +19,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
   String currentRoute = '/dashboard';
   String userName = 'User';
   String userRole = 'Employee';
-  double _shiftProgress = 0.4; // 40% progress (4 hours remaining out of 10)
-
   @override
   void initState() {
     super.initState();
     _loadData();
-    _calculateShiftProgress();
-  }
-
-  void _calculateShiftProgress() {
-    // Simulate shift progress based on time of day
-    final now = DateTime.now();
-    final startOfDay = DateTime(now.year, now.month, now.day, 8, 0); // 8 AM start
-    final endOfDay = DateTime(now.year, now.month, now.day, 18, 0); // 6 PM end
-    
-    if (now.isAfter(startOfDay) && now.isBefore(endOfDay)) {
-      final elapsed = now.difference(startOfDay).inMinutes;
-      final total = endOfDay.difference(startOfDay).inMinutes;
-      setState(() {
-        _shiftProgress = elapsed / total;
-      });
-    }
   }
 
   Future<void> _loadData() async {
@@ -117,80 +99,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               Text(
                                 _getCurrentDate(),
                                 style: const TextStyle(color: Colors.black54),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 20),
-                          // Shift Progress and AI Status
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Container(
-                                  padding: const EdgeInsets.all(16),
-                                  decoration: BoxDecoration(
-                                    color: Colors.blue.shade50,
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      const Text(
-                                        'SHIFT PROGRESS',
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.blue,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 8),
-                                      Text(
-                                        '${((1 - _shiftProgress) * 10).toStringAsFixed(0)} hours remaining',
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 8),
-                                      LinearProgressIndicator(
-                                        value: _shiftProgress,
-                                        backgroundColor: Colors.grey.shade200,
-                                        valueColor: const AlwaysStoppedAnimation<Color>(Colors.blue),
-                                        minHeight: 8,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: 16),
-                              Container(
-                                padding: const EdgeInsets.all(16),
-                                decoration: BoxDecoration(
-                                  color: Colors.green.shade50,
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: const Row(
-                                  children: [
-                                    Icon(Icons.check_circle, color: Colors.green),
-                                    SizedBox(width: 8),
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'AI Live Transcription Ready',
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.green,
-                                          ),
-                                        ),
-                                        Text(
-                                          'System operational',
-                                          style: TextStyle(fontSize: 10, color: Colors.black54),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
                               ),
                             ],
                           ),
@@ -289,6 +197,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   label: 'Record Voice Note',
                   subtitle: 'Click to start audio entry',
                   color: Colors.white,
+                  onTap: () {
+                    Navigator.pushNamed(context, '/submit-report').then((_) {
+                      _loadData();
+                    });
+                  },
                 ),
               ),
               const SizedBox(width: 16),
@@ -298,6 +211,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   label: 'Upload Visuals',
                   subtitle: 'Drag photos or click to browse',
                   color: Colors.white,
+                  onTap: () {
+                    Navigator.pushNamed(context, '/submit-report').then((_) {
+                      _loadData();
+                    });
+                  },
                 ),
               ),
               const SizedBox(width: 16),
@@ -307,6 +225,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   label: 'Add Detailed Notes',
                   subtitle: 'Manual entry & review draft',
                   color: Colors.white,
+                  onTap: () {
+                    Navigator.pushNamed(context, '/submit-report').then((_) {
+                      _loadData();
+                    });
+                  },
                 ),
               ),
             ],
@@ -353,30 +276,34 @@ class _DashboardScreenState extends State<DashboardScreen> {
     required String label,
     required String subtitle,
     required Color color,
+    VoidCallback? onTap,
   }) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.grey.shade300),
-      ),
-      child: Column(
-        children: [
-          Icon(icon, size: 32, color: Colors.blue),
-          const SizedBox(height: 12),
-          Text(
-            label,
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            subtitle,
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 12, color: Colors.black54),
-          ),
-        ],
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: Colors.grey.shade300),
+        ),
+        child: Column(
+          children: [
+            Icon(icon, size: 32, color: Colors.blue),
+            const SizedBox(height: 12),
+            Text(
+              label,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              subtitle,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 12, color: Colors.black54),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -750,17 +677,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 'Daily Tasks',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(
-                  color: Colors.orange.shade100,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: const Text(
-                  'High Priority',
-                  style: TextStyle(fontSize: 10, color: Colors.orange, fontWeight: FontWeight.bold),
-                ),
-              ),
             ],
           ),
           const SizedBox(height: 8),
@@ -834,38 +750,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ),
             );
           }),
-          const SizedBox(height: 16),
-          const Divider(),
-          const SizedBox(height: 16),
-          const Text(
-            'SHIFT PROGRESS',
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
-              color: Colors.blue,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                '${(completedCount / totalTasks * 100).toStringAsFixed(0)}%',
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.blue,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          LinearProgressIndicator(
-            value: completedCount / totalTasks,
-            backgroundColor: Colors.grey.shade200,
-            valueColor: const AlwaysStoppedAnimation<Color>(Colors.blue),
-            minHeight: 8,
-          ),
           const SizedBox(height: 16),
           Container(
             padding: const EdgeInsets.all(12),

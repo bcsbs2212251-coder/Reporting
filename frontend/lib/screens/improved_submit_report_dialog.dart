@@ -259,7 +259,7 @@ class ImprovedSubmitReportDialog {
                                 children: [
                                   Expanded(
                                     child: DropdownButtonFormField<String>(
-                                      value: selectedPriority,
+                                      initialValue: selectedPriority,
                                       decoration: const InputDecoration(
                                         labelText: 'Priority',
                                         border: OutlineInputBorder(),
@@ -294,7 +294,7 @@ class ImprovedSubmitReportDialog {
                                   const SizedBox(width: 12),
                                   Expanded(
                                     child: DropdownButtonFormField<String>(
-                                      value: selectedCategory,
+                                      initialValue: selectedCategory,
                                       decoration: const InputDecoration(
                                         labelText: 'Category',
                                         border: OutlineInputBorder(),
@@ -338,7 +338,7 @@ class ImprovedSubmitReportDialog {
                                       ElevatedButton.icon(
                                         onPressed: startRecording,
                                         icon: const Icon(Icons.mic, size: 20),
-                                        label: Text(kIsWeb ? 'Record (Mobile Only)' : 'Record'),
+                                        label: const Text(kIsWeb ? 'Record (Mobile Only)' : 'Record'),
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor: Colors.red,
                                           foregroundColor: Colors.white,
@@ -504,23 +504,31 @@ class ImprovedSubmitReportDialog {
 
                                       // Upload voice note
                                       if (recordedPath != null) {
-                                        String? url = await ApiService.uploadFile(recordedPath!);
-                                        if (url != null) {
-                                          voiceNoteUrls.add(url);
+                                        try {
+                                          String? url = await ApiService.uploadFile(recordedPath!);
+                                          if (url != null) {
+                                            voiceNoteUrls.add(url);
+                                          }
+                                        } catch (e) {
+                                          debugPrint('Voice note upload error: $e');
                                         }
                                       }
 
                                       // Upload attachments
                                       for (var file in selectedFiles) {
                                         if (file.path != null) {
-                                          String? url = await ApiService.uploadFile(file.path!);
-                                          if (url != null) {
-                                            attachmentUrls.add(url);
+                                          try {
+                                            String? url = await ApiService.uploadFile(file.path!);
+                                            if (url != null) {
+                                              attachmentUrls.add(url);
+                                            }
+                                          } catch (e) {
+                                            debugPrint('Attachment upload error: $e');
                                           }
                                         }
                                       }
 
-                                      await ApiService.createReport(
+                                      final result = await ApiService.createReport(
                                         title: titleController.text,
                                         description: descriptionController.text,
                                         priority: selectedPriority,
@@ -528,6 +536,10 @@ class ImprovedSubmitReportDialog {
                                         attachments: attachmentUrls,
                                         voiceNotes: voiceNoteUrls,
                                       );
+
+                                      if (!result['success']) {
+                                        throw Exception(result['error'] ?? 'Failed to create report');
+                                      }
 
                                       if (!context.mounted) return;
                                       audioRecorder.dispose();

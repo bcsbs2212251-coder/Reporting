@@ -150,9 +150,9 @@ class _UnifiedAdminScreenState extends State<UnifiedAdminScreen> with TickerProv
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             crossAxisCount: 2,
-            crossAxisSpacing: 16,
-            mainAxisSpacing: 16,
-            childAspectRatio: 1.5,
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 12,
+            childAspectRatio: 2.2,
             children: [
               _buildStatCard('Total Reports', totalReports.toString(), Icons.description, Colors.blue),
               _buildStatCard('Pending Reports', pendingReports.toString(), Icons.pending, Colors.orange),
@@ -263,7 +263,6 @@ class _UnifiedAdminScreenState extends State<UnifiedAdminScreen> with TickerProv
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('By: ${report['user_name'] ?? 'Unknown'}'),
-                      Text('Priority: ${report['priority'] ?? 'medium'}'),
                     ],
                   ),
                   trailing: Column(
@@ -341,7 +340,6 @@ class _UnifiedAdminScreenState extends State<UnifiedAdminScreen> with TickerProv
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('Assigned to: ${task['user_name'] ?? 'Unknown'}'),
-                      Text('Priority: ${task['priority'] ?? 'medium'}'),
                     ],
                   ),
                   trailing: Container(
@@ -656,7 +654,7 @@ class _UnifiedAdminScreenState extends State<UnifiedAdminScreen> with TickerProv
 
   Widget _buildStatCard(String title, String value, IconData icon, Color color) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
@@ -668,19 +666,27 @@ class _UnifiedAdminScreenState extends State<UnifiedAdminScreen> with TickerProv
           ),
         ],
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: Row(
         children: [
-          Icon(icon, size: 32, color: color),
-          const SizedBox(height: 8),
-          Text(
-            value,
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: color),
-          ),
-          Text(
-            title,
-            style: const TextStyle(fontSize: 12, color: Colors.grey),
-            textAlign: TextAlign.center,
+          Icon(icon, size: 28, color: color),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  value,
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: color),
+                ),
+                Text(
+                  title,
+                  style: const TextStyle(fontSize: 11, color: Colors.grey),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -813,7 +819,6 @@ class _UnifiedAdminScreenState extends State<UnifiedAdminScreen> with TickerProv
           children: [
             Text('Description: ${report['description'] ?? 'No description'}'),
             const SizedBox(height: 8),
-            Text('Priority: ${report['priority'] ?? 'medium'}'),
             Text('Status: ${report['status'] ?? 'pending'}'),
             Text('Submitted by: ${report['user_name'] ?? 'Unknown'}'),
             if (report['attachments'] != null && (report['attachments'] as List).isNotEmpty) ...[
@@ -892,8 +897,6 @@ class _UnifiedAdminScreenState extends State<UnifiedAdminScreen> with TickerProv
     final titleController = TextEditingController();
     final descriptionController = TextEditingController();
     String selectedUserId = '';
-    String selectedPriority = 'medium';
-
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -925,20 +928,6 @@ class _UnifiedAdminScreenState extends State<UnifiedAdminScreen> with TickerProv
                   selectedUserId = value ?? '';
                 },
               ),
-              const SizedBox(height: 16),
-              DropdownButtonFormField<String>(
-                value: selectedPriority,
-                decoration: const InputDecoration(labelText: 'Priority'),
-                items: ['low', 'medium', 'high'].map<DropdownMenuItem<String>>((priority) {
-                  return DropdownMenuItem<String>(
-                    value: priority,
-                    child: Text(priority.toUpperCase()),
-                  );
-                }).toList(),
-                onChanged: (value) {
-                  selectedPriority = value ?? 'medium';
-                },
-              ),
             ],
           ),
         ),
@@ -955,7 +944,7 @@ class _UnifiedAdminScreenState extends State<UnifiedAdminScreen> with TickerProv
                   userId: selectedUserId,
                   title: titleController.text,
                   description: descriptionController.text,
-                  priority: selectedPriority,
+                  priority: 'medium',
                 );
                 if (!mounted) return;
                 _loadData();

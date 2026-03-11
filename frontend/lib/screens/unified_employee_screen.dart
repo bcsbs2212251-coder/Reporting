@@ -23,34 +23,18 @@ class _UnifiedEmployeeScreenState extends State<UnifiedEmployeeScreen> with Tick
   List<dynamic> _myTasks = [];
   List<dynamic> _myLeaves = [];
   bool _isLoading = true;
-  double _shiftProgress = 0.4;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 4, vsync: this);
     _loadData();
-    _calculateShiftProgress();
   }
 
   @override
   void dispose() {
     _tabController.dispose();
     super.dispose();
-  }
-
-  void _calculateShiftProgress() {
-    final now = DateTime.now();
-    final startOfDay = DateTime(now.year, now.month, now.day, 8, 0);
-    final endOfDay = DateTime(now.year, now.month, now.day, 18, 0);
-    
-    if (now.isAfter(startOfDay) && now.isBefore(endOfDay)) {
-      final elapsed = now.difference(startOfDay).inMinutes;
-      final total = endOfDay.difference(startOfDay).inMinutes;
-      setState(() {
-        _shiftProgress = elapsed / total;
-      });
-    }
   }
 
   Future<void> _loadData() async {
@@ -210,71 +194,26 @@ class _UnifiedEmployeeScreenState extends State<UnifiedEmployeeScreen> with Tick
           ),
           const SizedBox(height: 16),
           
-          GridView.count(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            crossAxisCount: 2,
-            crossAxisSpacing: 16,
-            mainAxisSpacing: 16,
-            childAspectRatio: 1.2,
+          Row(
             children: [
-              _buildActionCard(
-                'Submit Report',
-                Icons.add_circle,
-                Colors.blue,
-                () => ImprovedSubmitReportDialog.show(context, _loadData),
+              Expanded(
+                child: _buildActionCard(
+                  'Submit Report',
+                  Icons.add_circle,
+                  Colors.blue,
+                  () => ImprovedSubmitReportDialog.show(context, _loadData),
+                ),
               ),
-              _buildActionCard(
-                'Request Leave',
-                Icons.event_available,
-                Colors.green,
-                () => _showRequestLeaveDialog(),
+              const SizedBox(width: 12),
+              Expanded(
+                child: _buildActionCard(
+                  'Request Leave',
+                  Icons.event_available,
+                  Colors.green,
+                  () => _showRequestLeaveDialog(),
+                ),
               ),
             ],
-          ),
-          
-          const SizedBox(height: 24),
-          
-          // Shift Progress
-          Card(
-            elevation: 2,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'Shift Progress',
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        '${(_shiftProgress * 100).toInt()}% Done',
-                        style: TextStyle(color: Colors.blue[700], fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: LinearProgressIndicator(
-                      value: _shiftProgress,
-                      minHeight: 12,
-                      backgroundColor: Colors.blue[50],
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.blue[600]!),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  const Text(
-                    'Standard Shift: 08:00 AM - 06:00 PM',
-                    style: TextStyle(fontSize: 12, color: Colors.grey),
-                  ),
-                ],
-              ),
-            ),
           ),
           
           const SizedBox(height: 24),
@@ -393,9 +332,6 @@ class _UnifiedEmployeeScreenState extends State<UnifiedEmployeeScreen> with Tick
                             const SizedBox(height: 8),
                             Row(
                               children: [
-                                const Icon(Icons.priority_high, size: 14, color: Colors.grey),
-                                Text(' ${report['priority'] ?? 'medium'}', style: const TextStyle(fontSize: 12, color: Colors.grey)),
-                                const SizedBox(width: 16),
                                 const Icon(Icons.access_time, size: 14, color: Colors.grey),
                                 Text(' ${_formatDate(report['created_at'])}', style: const TextStyle(fontSize: 12, color: Colors.grey)),
                               ],
@@ -510,7 +446,6 @@ class _UnifiedEmployeeScreenState extends State<UnifiedEmployeeScreen> with Tick
                           children: [
                             if (task['description'] != null && task['description'].isNotEmpty)
                               Text(task['description']),
-                            Text('Priority: ${task['priority'] ?? 'medium'}'),
                           ],
                         ),
                         trailing: Container(
@@ -673,44 +608,44 @@ class _UnifiedEmployeeScreenState extends State<UnifiedEmployeeScreen> with Tick
   }
 
   Widget _buildActionCard(String title, IconData icon, Color color, VoidCallback onTap) {
-    return Expanded(
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(16),
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 24),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: color.withOpacity(0.1)),
-            boxShadow: [
-              BoxShadow(
-                color: color.withOpacity(0.05),
-                blurRadius: 10,
-                offset: const Offset(0, 4),
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(12),
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: color.withOpacity(0.2)),
+          boxShadow: [
+            BoxShadow(
+              color: color.withOpacity(0.08),
+              blurRadius: 8,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: color.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(10),
               ),
-            ],
-          ),
-          child: Column(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: color.withOpacity(0.1),
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(icon, color: color, size: 28),
-              ),
-              const SizedBox(height: 12),
-              Text(
+              child: Icon(icon, color: color, size: 24),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Text(
                 title,
                 style: const TextStyle(
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w600,
                   fontSize: 14,
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -831,7 +766,7 @@ class _UnifiedEmployeeScreenState extends State<UnifiedEmployeeScreen> with Tick
 
   Widget _buildSummaryCard(String title, String value, IconData icon, Color color) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
@@ -843,17 +778,35 @@ class _UnifiedEmployeeScreenState extends State<UnifiedEmployeeScreen> with Tick
           ),
         ],
       ),
-      child: Column(
+      child: Row(
         children: [
-          Icon(icon, size: 24, color: color),
-          const SizedBox(height: 8),
-          Text(
-            value,
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: color),
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: color.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Icon(icon, size: 22, color: color),
           ),
-          Text(
-            title,
-            style: const TextStyle(fontSize: 12, color: Colors.grey),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  value,
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: color,
+                  ),
+                ),
+                Text(
+                  title,
+                  style: const TextStyle(fontSize: 12, color: Colors.grey),
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -1089,7 +1042,7 @@ class _UnifiedEmployeeScreenState extends State<UnifiedEmployeeScreen> with Tick
                 children: [
                   // Leave Type Dropdown
                   DropdownButtonFormField<String>(
-                    value: selectedLeaveType,
+                    initialValue: selectedLeaveType,
                     decoration: const InputDecoration(labelText: 'Leave Type'),
                     items: [
                       'half day morning',
@@ -1105,7 +1058,7 @@ class _UnifiedEmployeeScreenState extends State<UnifiedEmployeeScreen> with Tick
                   
                   // Reason Dropdown
                   DropdownButtonFormField<String>(
-                    value: selectedReason,
+                    initialValue: selectedReason,
                     decoration: const InputDecoration(labelText: 'Reason'),
                     items: [
                       'University class',

@@ -104,7 +104,7 @@ class _AdminScreenState extends State<AdminScreen> {
                 ),
                 const SizedBox(height: 16),
                 DropdownButtonFormField<String>(
-                  value: selectedUserId.isEmpty ? null : selectedUserId,
+                  initialValue: selectedUserId.isEmpty ? null : selectedUserId,
                   decoration: const InputDecoration(
                     labelText: 'Assign To',
                     border: OutlineInputBorder(),
@@ -123,7 +123,7 @@ class _AdminScreenState extends State<AdminScreen> {
                 ),
                 const SizedBox(height: 16),
                 DropdownButtonFormField<String>(
-                  value: selectedPriority,
+                  initialValue: selectedPriority,
                   decoration: const InputDecoration(
                     labelText: 'Priority',
                     border: OutlineInputBorder(),
@@ -220,7 +220,7 @@ class _AdminScreenState extends State<AdminScreen> {
                 ),
                 const SizedBox(height: 16),
                 DropdownButtonFormField<String>(
-                  value: selectedPriority,
+                  initialValue: selectedPriority,
                   decoration: const InputDecoration(
                     labelText: 'Priority',
                     border: OutlineInputBorder(),

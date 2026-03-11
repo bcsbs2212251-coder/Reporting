@@ -14,7 +14,6 @@ class _SubmitReportScreenState extends State<SubmitReportScreen> {
   final _formKey = GlobalKey<FormState>();
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
-  String _priority = 'medium';
   bool _isLoading = false;
   bool _isRecording = false;
   String? _errorMessage;
@@ -119,21 +118,23 @@ class _SubmitReportScreenState extends State<SubmitReportScreen> {
       final result = await ApiService.createReport(
         title: _titleController.text.trim(),
         description: _descriptionController.text.trim(),
-        priority: _priority,
+        priority: 'medium',
       );
 
       if (!mounted) return;
 
       if (result['success']) {
         if (mounted) {
-          if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('Report submitted successfully!'),
               backgroundColor: Colors.green,
+              duration: Duration(seconds: 2),
             ),
           );
-          // Go back to dashboard instead of popping
+          // Wait for snackbar to show, then navigate
+          await Future.delayed(const Duration(milliseconds: 500));
+          if (!mounted) return;
           Navigator.pushReplacementNamed(context, '/dashboard');
         }
       } else {
@@ -361,32 +362,6 @@ class _SubmitReportScreenState extends State<SubmitReportScreen> {
                   validator: (value) =>
                       value?.isEmpty ?? true ? 'Description is required' : null,
                 ),
-                const SizedBox(height: 20),
-
-                // Priority selection
-                const Text(
-                  'Priority Level',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                const SizedBox(height: 12),
-                Row(
-                  children: [
-                    Expanded(
-                      child: _buildPriorityButton('Low', 'low', Colors.green),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: _buildPriorityButton('Medium', 'medium', Colors.orange),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: _buildPriorityButton('High', 'high', Colors.red),
-                    ),
-                  ],
-                ),
                 const SizedBox(height: 32),
 
                 // Submit button
@@ -424,40 +399,6 @@ class _SubmitReportScreenState extends State<SubmitReportScreen> {
               ],
             ),
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildPriorityButton(String label, String value, Color color) {
-    final isSelected = _priority == value;
-    return GestureDetector(
-      onTap: () => setState(() => _priority = value),
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 16),
-        decoration: BoxDecoration(
-          color: isSelected ? color.withValues(alpha: 0.2) : Colors.grey.shade100,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: isSelected ? color : Colors.grey.shade300,
-            width: 2,
-          ),
-        ),
-        child: Column(
-          children: [
-            Icon(
-              Icons.flag,
-              color: isSelected ? color : Colors.grey.shade600,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              label,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: isSelected ? color : Colors.grey.shade700,
-              ),
-            ),
-          ],
         ),
       ),
     );
